@@ -7,7 +7,14 @@
  */
 
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
+import codePush from "react-native-code-push";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -17,12 +24,19 @@ const instructions = Platform.select({
 });
 
 export default class App extends Component {
+  onButtonPress() {
+    codePush.sync({
+      updateDialog: true,
+      installMode: codePush.InstallMode.IMMEDIATE,
+    });
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text>Hello there, just press the button :p</Text>
+        <TouchableOpacity onPress={this.onButtonPress}>
+          <Text>Check for updates</Text>
+        </TouchableOpacity>
       </View>
     );
   }
